@@ -9,6 +9,7 @@ class TaskInput extends Component {
 
   handlePress = event => {
     const username = this.state.username;
+    console.log(username);
   };
 
   handleAddButtonPress = value => this.setState({ username: value });

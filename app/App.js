@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import Header from './components/Header';
 import TaskInput from './components/TaskInput';
 import { Button } from './components/common';
@@ -8,27 +8,26 @@ class App extends Component {
   state = { task: '', list: [] };
 
   onAddButtonPress = () => {
+    console.log('asdf', this.state.list);
     const newList = [...this.state.list, this.state.task];
     this.setState({ list: newList, task: '' });
   }
 
-  renderTodoItem = number => (
-    <View key={number}>
-      {number}
-    </View>
+  renderTodoItem = ({ item }) => (
+    <Text key={item}>
+      {item}
+    </Text>
   )
 
   render() {
-    console.log(this.state);
     return (
       <View style={styles.container}>
         <Header />
         <View style={styles.body}>
-          {/* <View style={styles.tasks}>
-            {this.state.list.length === 0
-              ? <Text>Not task added yet</Text>
-              : this.state.list.map(this.renderTodoItem)}
-          </View> */}
+          <FlatList
+            data={this.state.list}
+            renderItem={this.renderTodoItem}
+          />
           <View style={styles.taskInputContainer}>
             <TaskInput
               placeholder="Add some task"
@@ -58,9 +57,10 @@ const styles = {
     flex: 1,
   },
   taskInputContainer: {
-    height: 150,
+    height: 200,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom: 10,
   },
 };
 
